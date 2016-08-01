@@ -1,10 +1,7 @@
 {
-    "name": "codingmatters/dashboard-module-ini",
-    "description": "Initial Dashboard Module for ZF application",
+    "name": "iaccess/dashboard-integration",
     "license": "MIT",
     "type": "project",
-    "keywords": ["ZF module", "Dashboard"],
-    "homepage": "https://github.com/CodingMatters/DashboardModule/",
     "authors": [
         {
             "name": "Gab Amba",
@@ -13,17 +10,14 @@
         }
     ],
     "require": {
-        "php": "^5.6 || ^7.0",
-        "roave/security-advisories": "dev-master",
-        "zendframework/zend-mvc": "^3.0.2",
-        "zendframework/zend-mvc-i18n": "^1.0",
-        "zendframework/zend-mvc-plugins": "^1.0.1",
-        "zendframework/zend-navigation": "^2.8.1"
+        "php": "^7.0",
+        "roave/security-advisories": "dev-master"
     },
     "require-dev": {
-        "zendframework/zend-test": "^3.0",
-        "squizlabs/php_codesniffer": "^2.3",
-        "phpbench/phpbench": "^0.11"
+        "zendframework/zend-test": "^3.0.1",
+        "squizlabs/php_codesniffer": "^2.6.2",
+        "phpbench/phpbench": "^0.11.2",
+	"sebastian/phpcpd": "^2.0.4"
     },
     "autoload": {
         "psr-4": {
@@ -43,17 +37,19 @@
     },
     "scripts": {
         "post-install-cmd"  : [
-            "@check"
+            "@show-me-the-bugs"
         ],
         "post-update-cmd"   : [            
-            "@check"
+            "@show-me-the-bugs"
         ],
-        "check": [
-            "@test",
-            "@cs" 
+        "show-me-the-bugs": [
+	    "@cs",
+	    "@cpd",
+            "@test"
         ],
-        "cs": "phpcs",
-        "cs-fix": "phpcbf",
-        "test": "phpunit"
+        "cs": "phpcs --ignore=/vendor,/build ",
+        "cs-fix": "phpcbf --ignore=/vendor,/build ",
+	"cpd": "phpcpd --exclude=vendor --fuzzy src",
+        "test": "phpunit --verbose"
     }
 }
